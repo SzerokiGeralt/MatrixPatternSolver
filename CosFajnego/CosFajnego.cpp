@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
+#pragma warning(disable:4996)
 #define CZERWONY   "\x1b[31m"
 #define ZIELONY    "\x1b[32m"
 #define NIEBIESKI  "\x1b[34m"
@@ -59,8 +60,12 @@ void wypiszTablice(int** tablica) {
 }
 
 int main() {
+    int (*wzorek)[15][15];
+    int choice;
+    printf(JASNY_NIEBIESKI"Give the number of pattern you want to draw:\n\n1 - heart\n2 - PK logo\n\nInput number: ");
+    scanf("%d",&choice);
 
-    int wzorek[15][15] = {
+    int wzorek1 [15][15] = {
         {0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0},
         {0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
         {0, 0, 1, 1, 5, 5, 1, 1, 1, 5, 5, 1, 1, 0, 0},
@@ -77,6 +82,39 @@ int main() {
         {0, 0, 0, 0, 0, 1, 1, 5, 1, 1, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0}
     };
+
+    int wzorek2[15][15] = {
+    {0, 0, 0, 0, 0, 0, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 0, 0, 0, 0, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 7, 7, 7, 3, 0, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 7, 7, 7, 3, 0, 7, 0, 0, 7, 7, 3, 3, 0},
+    {0, 0, 7, 7, 7, 3, 0, 7, 0, 0, 3, 3, 3, 0, 7},
+    {0, 3, 7, 7, 7, 3, 0, 7, 0, 0, 0, 0, 0, 7, 7},
+    {0, 0, 3, 3, 3, 0, 7, 7, 0, 0, 7, 7, 3, 0, 7},
+    {0, 0, 0, 0, 0, 0, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    {0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 3, 0},
+    };
+
+    switch (choice) {
+    case 1:
+        wzorek = wzorek1;
+        break;
+    case 2:
+        wzorek = wzorek2;
+        break;
+    default:
+        printf(CZERWONY"Wrong number!");
+        return 1;
+        break;
+    }
+
+    
 
 
     // Inicjalizacja generatora liczb pseudolosowych
@@ -100,7 +138,7 @@ int main() {
 
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            while (tablica[i][j] != wzorek[i][j]) {
+            while (tablica[i][j] != (*wzorek)[i][j]) {
                 if (tablica[i][j] == 9) {
                     Sleep(DELAY);
                     tablica[i][j] = 0;
